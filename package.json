@@ -1,0 +1,15 @@
+{
+  "name": "torch-boomcatch",
+  "version": "1.0.0",
+  "description": "Boomcatch for the masses",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "Matt Shull",
+  "license": "MIT",
+  "dependencies": {
+    "boomcatch": "^3.2.5"
+  }
+}

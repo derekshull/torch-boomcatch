@@ -1,0 +1,16 @@
+{
+    "name": "get-off-my-log",
+    "version": "0.1.0",
+    "description": "My JavaScript logging library. Significantly lamer than all the other log libraries, but this one is mine and I like it. So nerr. :p",
+    "repo": "philbooth/get-off-my-log",
+    "license": "MIT",
+    "keywords": [
+        "log",
+        "logger",
+        "logging"
+    ],
+    "scripts": [
+        "src/min.js"
+    ]
+}
+

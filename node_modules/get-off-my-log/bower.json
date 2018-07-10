@@ -1,0 +1,15 @@
+{
+    "name": "get-off-my-log",
+    "version": "0.1.0",
+    "main": "src/min.js",
+    "ignore": [
+        "AUTHORS",
+        "component.json",
+        "node_modules",
+        "package.json",
+        "README.md",
+        "src/index.js",
+        "test"
+    ]
+}
+
