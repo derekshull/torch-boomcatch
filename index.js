@@ -20,7 +20,7 @@ boomcatch.listen({
   filter: 'unfiltered',
   mapper: 'unmapped',
   forwarder: 'console',
-  workers: require('os').cpus().length,
+  workers: 1,
   delayRespawn: 0,
   maxRespawn: -1
 });
