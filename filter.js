@@ -8,7 +8,7 @@ exports.initialise = function () {
     try {
       const bodyPid = data.pid;
 
-      MongoClient.connect(url, (connectError, client) => {
+      MongoClient.connect(url, { useNewUrlParser: true } , (connectError, client) => {
         if (connectError) throw connectError;
 
         const db = client.db(dbName);
