@@ -36,6 +36,7 @@ exports.initialise = function () {
     try {
       const beaconData = jsonify(data);
       const bodyPid = beaconData.pid;
+      console.log('bodyPid: ', bodyPid);
 
       MongoClient.connect(url, { useNewUrlParser: true } , (connectError, client) => {
         if (connectError) throw connectError;
@@ -52,7 +53,12 @@ exports.initialise = function () {
             collection.updateOne({ pid: bodyPid }, { $set: beaconData }, {}, (updateError) => {
               if (updateError) throw updateError;
               client.close();
+              console.log(' ');
               console.log('updated existing beacon');
+              console.log(' ');
+              console.log(beaconData);
+              console.log(' ');
+              console.log(' ');
               return beaconData;
             });
           } else {
@@ -60,7 +66,12 @@ exports.initialise = function () {
             collection.insertOne(beaconData, {}, (insertErr) => {
               if (insertErr) throw insertErr;
               client.close();
+              console.log(' ');
               console.log('inserted new beacon');
+              console.log(' ');
+              console.log(beaconData);
+              console.log(' ');
+              console.log(' ');
               return beaconData;
             });
           }
