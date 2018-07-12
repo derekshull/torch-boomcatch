@@ -4,8 +4,6 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'torch';
 
 function jsonify(obj) {
-  obj = JSON.parse(obj);
-  const data = obj.data;
   // iterate over the property names
   Object.keys(data).forEach(function(k) {
     // slip the property value based on `.`
@@ -27,11 +25,7 @@ function jsonify(obj) {
     }
   });
 
-  data['referer'] = obj['referer'];
-  data['userAgent'] = obj['userAgent'];
-  data['browser'] = obj['browser'];
-
-  return data;
+  return obj;
 }
 
 function byteCount(data) {
@@ -41,9 +35,15 @@ function byteCount(data) {
 exports.initialise = function () {
   return function (data, type, separator, callback) {
     try {
-      const beaconData = jsonify(data);
+      obj = JSON.parse(data);
+      objData = obj.data;
+      const beaconData = jsonify(objData);
       const bodyPid = beaconData.pid;
       console.log('bodyPid: ', bodyPid);
+
+      beaconData['referer'] = obj['referer'];
+      beaconData['userAgent'] = obj['userAgent'];
+      beaconData['browser'] = obj['browser'];
 
       MongoClient.connect(url, { useNewUrlParser: true } , (connectError, client) => {
         if (connectError) throw connectError;
