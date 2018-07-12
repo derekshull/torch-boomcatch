@@ -45,7 +45,7 @@ exports.initialise = function () {
       beaconData['userAgent'] = obj['userAgent'];
       beaconData['browser'] = obj['browser'];
 
-      MongoClient.connect(url, { useNewUrlParser: true } , (connectError, client) => {
+      MongoClient.connect(url, beaconData, { useNewUrlParser: true } , (connectError, client) => {
         if (connectError) throw connectError;
 
         const db = client.db(dbName);
@@ -57,7 +57,7 @@ exports.initialise = function () {
 
           if (queryResult) {
             // Update the existing beacon with new data
-            collection.updateOne({ pid: bodyPid }, {upsert: true}, (updateError) => {
+            collection.updateOne({ pid: bodyPid }, , {upsert: true}, (updateError) => {
               if (updateError) throw updateError;
               client.close();
               console.log(' ');
