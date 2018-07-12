@@ -17,7 +17,7 @@ boomcatch.listen({
   },*/
   log: console,
   validator: 'permissive',
-  filter: 'unfiltered',
+  filter: path.resolve('./filter.js'),
   mapper: 'unmapped',
   forwarder: 'console',
   workers: 1,
