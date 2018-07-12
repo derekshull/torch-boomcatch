@@ -6,7 +6,8 @@ const dbName = 'torch';
 exports.initialise = function () {
   return function (data, type, separator, callback) {
     try {
-      const bodyPid = data.pid;
+      const beaconData = JSON.parse(data);
+      const bodyPid = beaconData.pid;
 
       MongoClient.connect(url, { useNewUrlParser: true } , (connectError, client) => {
         if (connectError) throw connectError;
@@ -20,19 +21,19 @@ exports.initialise = function () {
 
           if (queryResult) {
             // Update the existing beacon with new data
-            collection.updateOne({ pid: bodyPid }, { $set: data }, {}, (updateError) => {
+            collection.updateOne({ pid: bodyPid }, { $set: beaconData }, {}, (updateError) => {
               if (updateError) throw updateError;
               client.close();
               console.log('updated existing beacon');
-              return data;
+              return beaconData;
             });
           } else {
             // Insert the new beacon
-            collection.insertOne(data, {}, (insertErr) => {
+            collection.insertOne(beaconData, {}, (insertErr) => {
               if (insertErr) throw insertErr;
               client.close();
               console.log('inserted new beacon');
-              return data;
+              return beaconData;
             });
           }
         });
@@ -40,7 +41,7 @@ exports.initialise = function () {
     } catch (e) {
       console.log('found an error');
       console.log(e);
-      return data;
+      return beaconData;
     }
   };
 };
