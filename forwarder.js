@@ -59,7 +59,7 @@ exports.initialise = function () {
               console.log(beaconData);
               console.log(' ');
               console.log(' ');
-              return beaconData;
+              callback(beaconData);
             });
           } else {
             // Insert the new beacon
@@ -72,7 +72,7 @@ exports.initialise = function () {
               console.log(beaconData);
               console.log(' ');
               console.log(' ');
-              return beaconData;
+              callback(beaconData);
             });
           }
         });
@@ -80,7 +80,7 @@ exports.initialise = function () {
     } catch (e) {
       console.log('found an error');
       console.log(e);
-      return beaconData;
+      callback(beaconData);
     }
   };
 };
