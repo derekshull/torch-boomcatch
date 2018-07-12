@@ -57,7 +57,7 @@ exports.initialise = function () {
 
           if (queryResult) {
             // Update the existing beacon with new data
-            collection.updateOne({ pid: bodyPid }, { $set: beaconData }, {}, (updateError) => {
+            collection.updateOne({ pid: bodyPid }, {}, {upsert: true}, (updateError) => {
               if (updateError) throw updateError;
               client.close();
               // console.log(' ');
