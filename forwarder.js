@@ -26,11 +26,15 @@ function jsonify(obj) {
     }
   });
 
-  data['referer'] = obj['referrer'];
+  data['referer'] = obj['referer'];
   data['userAgent'] = obj['userAgent'];
   data['browser'] = obj['browser'];
 
   return data;
+}
+
+function byteCount(data) {
+  return Buffer.byteLength(JSON.stringify(data), 'utf8');
 }
 
 exports.initialise = function () {
@@ -61,7 +65,7 @@ exports.initialise = function () {
               console.log(beaconData);
               console.log(' ');
               console.log(' ');
-              callback(beaconData);
+              callback(false, byteCount(beaconData));
             });
           } else {
             // Insert the new beacon
@@ -74,7 +78,7 @@ exports.initialise = function () {
               console.log(beaconData);
               console.log(' ');
               console.log(' ');
-              callback(beaconData);
+              callback(false, byteCount(beaconData));
             });
           }
         });
@@ -82,7 +86,7 @@ exports.initialise = function () {
     } catch (e) {
       console.log('found an error');
       console.log(e);
-      callback(beaconData);
+      callback(false, byteCount(beaconData));
     }
   };
 };
