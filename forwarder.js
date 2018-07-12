@@ -10,18 +10,20 @@ function jsonify(obj) {
   Object.keys(data).forEach(function(k) {
     // slip the property value based on `.`
     var prop = k.split('.');
-    // get the last value fom array
-    var last = prop.pop();
-    // iterate over the remaining array value 
-    // and define the object if not already defined
-    prop.reduce(function(o, key) {
-      // define the object if not defined and return
-      return o[key] = o[key] || {};
-      // set initial value as object
-      // and set the property value
-    }, data)[last] = data[k];
-    // delete the original property from object
-    delete data[k];
+    if (prop.length > 1) {
+      // get the last value fom array 
+      var last = prop.pop();
+      // iterate over the remaining array value 
+      // and define the object if not already defined
+      prop.reduce(function(o, key) {
+        // define the object if not defined and return
+        return o[key] = o[key] || {};
+        // set initial value as object
+        // and set the property value
+      }, obj)[last] = obj[k];
+      // delete the original property from object
+      delete obj[k];
+    }
   });
 
   data['referer'] = obj['referrer'];
