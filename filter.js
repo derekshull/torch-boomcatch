@@ -23,21 +23,21 @@ exports.initialise = function () {
             collection.updateOne({ pid: bodyPid }, { $set: data }, {}, (updateError) => {
               if (updateError) throw updateError;
               client.close();
-              return true;
+              return data;
             });
           } else {
             // Insert the new beacon
             collection.insertOne(data, {}, (insertErr) => {
               if (insertErr) throw insertErr;
               client.close();
-              return true;
+              return data;
             });
           }
         });
       });
     } catch (e) {
       console.log(e);
-      return true;
+      return data;
     }
   };
 };
