@@ -23,6 +23,7 @@ exports.initialise = function () {
             collection.updateOne({ pid: bodyPid }, { $set: data }, {}, (updateError) => {
               if (updateError) throw updateError;
               client.close();
+              console.log('updated existing beacon');
               return data;
             });
           } else {
@@ -30,12 +31,14 @@ exports.initialise = function () {
             collection.insertOne(data, {}, (insertErr) => {
               if (insertErr) throw insertErr;
               client.close();
+              console.log('inserted new beacon');
               return data;
             });
           }
         });
       });
     } catch (e) {
+      console.log('found an error');
       console.log(e);
       return data;
     }
