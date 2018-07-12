@@ -4,7 +4,7 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'torch';
 
 exports.initialise = function () {
-  return function (data) {
+  return function (data, type, separator, callback) {
     try {
       const bodyPid = data.pid;
 
