@@ -87,7 +87,7 @@ exports.initialise = function () {
     } catch (e) {
       console.log('found an error');
       console.log(e);
-      callback(false, byteCount(beaconData));
+      callback(false, byteCount(data));
     }
   };
 };
