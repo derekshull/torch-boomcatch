@@ -8,7 +8,7 @@ function jsonify(obj) {
   Object.keys(obj).forEach(function(k) {
     // slip the property value based on `.`
     var prop = k.split('.');
-    // console.log(prop);
+    console.log(prop);
     if (prop.length > 1) {
       // get the last value fom array 
       var last = prop.pop();
@@ -39,7 +39,7 @@ exports.initialise = function () {
       objData = obj.data;
       const beaconData = jsonify(objData);
       const bodyPid = beaconData.pid;
-      // console.log('bodyPid: ', bodyPid);
+      console.log('bodyPid: ', bodyPid);
 
       beaconData['referer'] = obj['referer'];
       beaconData['userAgent'] = obj['userAgent'];
@@ -60,12 +60,12 @@ exports.initialise = function () {
             collection.updateOne({ pid: bodyPid }, {}, {upsert: true}, (updateError) => {
               if (updateError) throw updateError;
               client.close();
-              // console.log(' ');
-              // console.log('updated existing beacon');
-              // console.log(' ');
-              // console.log(beaconData);
-              // console.log(' ');
-              // console.log(' ');
+              console.log(' ');
+              console.log('updated existing beacon');
+              console.log(' ');
+              console.log(beaconData);
+              console.log(' ');
+              console.log(' ');
               callback(false, byteCount(beaconData));
             });
           } else {
@@ -73,20 +73,20 @@ exports.initialise = function () {
             collection.insertOne(beaconData, {}, (insertErr) => {
               if (insertErr) throw insertErr;
               client.close();
-              // console.log(' ');
-              // console.log('inserted new beacon');
-              // console.log(' ');
-              // console.log(beaconData);
-              // console.log(' ');
-              // console.log(' ');
+              console.log(' ');
+              console.log('inserted new beacon');
+              console.log(' ');
+              console.log(beaconData);
+              console.log(' ');
+              console.log(' ');
               callback(false, byteCount(beaconData));
             });
           }
         });
       });
     } catch (e) {
-      // console.log('found an error');
-      // console.log(e);
+      console.log('found an error');
+      console.log(e);
       callback(false, byteCount(data));
     }
   };
