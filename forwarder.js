@@ -10,6 +10,7 @@ function jsonify(obj) {
   Object.keys(data).forEach(function(k) {
     // slip the property value based on `.`
     var prop = k.split('.');
+    console.log(prop);
     if (prop.length > 1) {
       // get the last value fom array 
       var last = prop.pop();
