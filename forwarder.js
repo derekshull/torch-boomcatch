@@ -5,7 +5,7 @@ const dbName = 'torch';
 
 function jsonify(obj) {
   // iterate over the property names
-  Object.keys(data).forEach(function(k) {
+  Object.keys(obj).forEach(function(k) {
     // slip the property value based on `.`
     var prop = k.split('.');
     console.log(prop);
