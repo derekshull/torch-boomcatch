@@ -75,12 +75,6 @@ exports.initialise = function () {
             collection.insertOne(beaconData, {}, (insertErr) => {
               if (insertErr) throw insertErr;
               client.close();
-              console.log(' ');
-              console.log('inserted new beacon');
-              console.log(' ');
-              console.log(beaconData);
-              console.log(' ');
-              console.log(' ');
               callback(false, byteCount(beaconData));
             });
           }
