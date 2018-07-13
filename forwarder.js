@@ -3,6 +3,7 @@ const MongoClient = require('mongodb').MongoClient; // eslint-disable-line
 const url = 'mongodb://localhost:27017';
 const dbName = 'torch';
 
+// TODO: move this to mapper.js
 function jsonify(obj) {
   // iterate over the property names
   Object.keys(obj).forEach(function(k) {
@@ -51,38 +52,51 @@ exports.initialise = function () {
         const db = client.db(dbName);
         const collection = db.collection('beacons');
 
-        // Look for a beacon with the same page ID
-        collection.findOne({ pid: bodyPid }, (queryError, queryResult) => {
-          if (queryError) throw queryError;
-
-          if (queryResult) {
-            // Update the existing beacon with new data
-            collection.updateOne({ pid: bodyPid }, { $set: beaconData }, {upsert: true}, (updateError) => {
-              if (updateError) throw updateError;
-              client.close();
-              console.log(' ');
-              console.log('updated existing beacon');
-              console.log(' ');
-              console.log(beaconData);
-              console.log(' ');
-              console.log(' ');
-              callback(false, byteCount(beaconData));
-            });
-          } else {
-            // Insert the new beacon
-            collection.insertOne(beaconData, {}, (insertErr) => {
-              if (insertErr) throw insertErr;
-              client.close();
-              console.log(' ');
-              console.log('inserted new beacon');
-              console.log(' ');
-              console.log(beaconData);
-              console.log(' ');
-              console.log(' ');
-              callback(false, byteCount(beaconData));
-            });
-          }
+        // Insert the new beacon
+        collection.insertOne(beaconData, {}, (insertErr) => {
+          if (insertErr) throw insertErr;
+          client.close();
+          console.log(' ');
+          console.log('inserted new beacon');
+          console.log(' ');
+          console.log(beaconData);
+          console.log(' ');
+          console.log(' ');
+          callback(false, byteCount(beaconData));
         });
+
+        // Look for a beacon with the same page ID
+        // collection.findOne({ pid: bodyPid }, (queryError, queryResult) => {
+        //   if (queryError) throw queryError;
+
+        //   if (queryResult) {
+        //     // Update the existing beacon with new data
+        //     collection.updateOne({ pid: bodyPid }, { $set: beaconData }, {upsert: true}, (updateError) => {
+        //       if (updateError) throw updateError;
+        //       client.close();
+        //       console.log(' ');
+        //       console.log('updated existing beacon');
+        //       console.log(' ');
+        //       console.log(beaconData);
+        //       console.log(' ');
+        //       console.log(' ');
+        //       callback(false, byteCount(beaconData));
+        //     });
+        //   } else {
+        //     // Insert the new beacon
+        //     collection.insertOne(beaconData, {}, (insertErr) => {
+        //       if (insertErr) throw insertErr;
+        //       client.close();
+        //       console.log(' ');
+        //       console.log('inserted new beacon');
+        //       console.log(' ');
+        //       console.log(beaconData);
+        //       console.log(' ');
+        //       console.log(' ');
+        //       callback(false, byteCount(beaconData));
+        //     });
+        //   }
+        // });
       });
     } catch (e) {
       console.log('found an error');
