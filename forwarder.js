@@ -10,7 +10,6 @@ function jsonify(obj) {
   Object.keys(obj).forEach(function(k) {
     // slip the property value based on `.`
     var prop = k.split('.');
-    console.log(prop);
     if (prop.length > 1) {
       // get the last value fom array 
       var last = prop.pop();
@@ -41,7 +40,6 @@ exports.initialise = function () {
       objData = obj.data;
       const beaconData = jsonify(objData);
       const bodyPid = beaconData.pid;
-      console.log('bodyPid: ', bodyPid);
 
       beaconData['referer'] = obj['referer'];
       beaconData['userAgent'] = obj['userAgent'];
