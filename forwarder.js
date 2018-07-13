@@ -57,7 +57,6 @@ exports.initialise = function () {
 
           if (queryResult) {
             const mergedResult = mergeJSON.merge(queryResult, beaconData);
-            console.log(mergedResult);
             // Update the existing beacon with new data
             collection.updateOne({ pid: bodyPid }, { $set: mergedResult }, {upsert: true}, (updateError) => {
               if (updateError) throw updateError;
