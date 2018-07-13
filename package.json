@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "boomcatch": "^3.2.5",
+    "merge-json": "0.1.0-b.3",
     "mongodb": "^3.1.1"
   }
 }
