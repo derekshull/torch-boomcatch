@@ -58,17 +58,13 @@ exports.initialise = function () {
           if (queryError) throw queryError;
 
           if (queryResult) {
-            console.log(' ');
-            console.log('queryResult');
-            console.log(' ');
-            console.log(queryResult);
-            console.log(' ');
-            console.log(' ');
+            const mergedResult = mergeJSON.merge(queryResult, beaconData);
+            console.log(mergedResult);
             // Update the existing beacon with new data
-            collection.updateOne({ pid: bodyPid }, { $set: beaconData }, {upsert: true}, (updateError) => {
+            collection.updateOne({ pid: bodyPid }, { $set: mergedResult }, {upsert: true}, (updateError) => {
               if (updateError) throw updateError;
               client.close();
-              callback(false, byteCount(beaconData));
+              callback(false, byteCount(mergedResult));
             });
           } else {
             // Insert the new beacon
